@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>云南鲜花饼 · 千年花食文脉</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"Noto Serif SC","Microsoft YaHei",sans-serif;background:#FAF3E0;color:#3B3B3B}
+  .wrap{max-width:100%;padding:50px 30px 30px}
+  .header{text-align:center;margin-bottom:30px}
+  .header h1{font-size:1.5rem;color:#2C5F2D;letter-spacing:3px;margin-bottom:4px}
+  .header .sub{color:#8B7355;font-size:0.78rem}
+
+  .scroll{overflow-x:auto;overflow-y:visible}
+  .track{position:relative;width:2800px;height:660px}
+
+  .axis{position:absolute;top:260px;left:60px;right:60px;height:3px;background:#7D9B7E;border-radius:2px}
+
+  .tick{position:absolute;top:270px;font-size:11px;color:#1a1a1a;font-weight:bold;transform:translateX(-50%);z-index:1}
+  .tick::before{content:"";display:block;width:1px;height:8px;background:#1a1a1a;margin:0 auto 3px}
+
+  .era{position:absolute;z-index:3;text-align:center;background:#FFF9F0;border-top:3px solid #D4A373;border-radius:10px;padding:10px 14px;box-shadow:0 2px 10px rgba(0,0,0,0.05);min-width:130px}
+  .era .era-date{color:#D4A373;font-weight:bold;font-size:0.7rem;display:block;margin-bottom:2px}
+  .era .era-name{color:#2C5F2D;font-size:0.9rem;font-weight:bold}
+  .era .era-desc{color:#8B7355;font-size:0.68rem;margin-top:1px}
+
+  .evt{position:absolute;z-index:2;display:flex;align-items:center;transform:translateX(-50%)}
+  .evt.up{flex-direction:column-reverse}
+  .evt.down{flex-direction:column}
+
+  .dot{width:8px;height:8px;background:#E8C547;border:2px solid #2C5F2D;border-radius:50%;flex-shrink:0}
+  .stem{width:1px;background:#7D9B7E;flex-shrink:0;opacity:0.5}
+  .bub{background:#FFF9F0;border:1px solid #E0D3C3;border-radius:8px;padding:5px 8px;font-size:10px;color:#5D5D5D;max-width:135px;cursor:pointer;transition:all 0.15s;text-align:center;flex-shrink:0}
+  .bub:hover{border-color:#D4A373;color:#2C5F2D;box-shadow:0 2px 8px rgba(212,163,115,0.25);background:#FFF6EB}
+  .bub .date{color:#D4A373;font-weight:bold;display:block;margin-bottom:1px;font-size:9px}
+
+  .tip{display:none;position:fixed;z-index:999;background:#FFF9F0;border:2px solid #D4A373;border-radius:12px;padding:14px 18px;max-width:280px;box-shadow:0 8px 30px rgba(0,0,0,0.15);pointer-events:none;font-size:13px;color:#5D5D5D;line-height:1.7}
+  .tip.on{display:block}
+  .footer{text-align:center;margin-top:10px;color:#A0947E;font-size:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>&#10047; 云南鲜花饼 · 千年花食文脉 &#10047;</h1>
+    <p class="sub">从南诏宫廷百花宴到国民伴手礼 — 一朵花的千载旅程</p>
+  </div>
+
+  <div class="scroll">
+  <div class="track">
+    <div class="axis"></div>
+
+    <!-- ===== 刻度（锁定）===== -->
+    <div class="tick" style="left:80px">750</div>
+    <div class="tick" style="left:700px">1436</div>
+    <div class="tick" style="left:920px">1550</div>
+    <div class="tick" style="left:1300px">1870</div>
+    <div class="tick" style="left:1520px">1907</div>
+    <div class="tick" style="left:1640px">1912</div>
+    <div class="tick" style="left:1820px">1949</div>
+    <div class="tick" style="left:2100px">1992</div>
+    <div class="tick" style="left:2350px">2008</div>
+    <div class="tick" style="left:2700px">2026</div>
+
+    <!-- ===== ERA（锁定，top不动）===== -->
+    <div class="era" style="left:80px;top:110px"><span class="era-date">8 — 13 世纪</span><div class="era-name">南诏·大理国</div><div class="era-desc">&#x1F338; 花食萌芽</div></div>
+    <div class="era" style="left:600px;top:110px"><span class="era-date">1271 — 1644</span><div class="era-name">元明时期</div><div class="era-desc">&#x1F331; 花食成型·南北交融</div></div>
+    <div class="era" style="left:1100px;top:110px"><span class="era-date">1644 — 1912</span><div class="era-name">清代</div><div class="era-desc">&#x1F35E; 鲜花饼正式诞生</div></div>
+    <div class="era" style="left:1600px;top:110px"><span class="era-date">1912 — 1949</span><div class="era-name">民国时期</div><div class="era-desc">&#x1F3EA; 走向寻常百姓家</div></div>
+    <div class="era" style="left:1950px;top:110px"><span class="era-date">1949 至今</span><div class="era-name">现当代</div><div class="era-desc">&#x1F30D; 产业化·走向全国</div></div>
+
+    <!-- ===== 年代背景图（全高覆盖，等距排布，首尾有图）===== -->
+    <div style="position:absolute;left:70px;top:0;width:550px;height:560px;z-index:0;display:flex;align-items:center;justify-content:center">
+      <img src="img/bg_nanzhao.png" style="max-width:100%;max-height:100%;object-fit:contain;opacity:0.35;border-radius:6px">
+    </div>
+    <div style="position:absolute;left:750px;top:0;width:550px;height:560px;z-index:0;display:flex;align-items:center;justify-content:center">
+      <img src="img/bg_yuanming.png" style="max-width:100%;max-height:100%;object-fit:contain;opacity:0.35;border-radius:6px">
+    </div>
+    <div style="position:absolute;left:1430px;top:0;width:550px;height:560px;z-index:0;display:flex;align-items:center;justify-content:center">
+      <img src="img/bg_qing.png" style="max-width:100%;max-height:100%;object-fit:contain;opacity:0.35;border-radius:6px">
+    </div>
+    <div style="position:absolute;left:2110px;top:0;width:550px;height:560px;z-index:0;display:flex;align-items:center;justify-content:center">
+      <img src="img/bg_minguo.png" style="max-width:100%;max-height:100%;object-fit:contain;opacity:0.35;border-radius:6px">
+    </div>
+
+    <!-- ===== 事件（圆点锁死在刻度位置，只改引线走向和长度）===== -->
+
+    <!-- 1. 8-13世纪 x=80，向下短 -->
+    <div class="evt down" style="left:80px;top:260px">
+      <div class="dot"></div><div class="stem" style="height:50px"></div>
+      <div class="bub" data-tip="南诏大理时期，滇地贵族以鲜花入宴。《蛮书》记载云南食用花卉最早史料。"><span class="date">8—13 世纪</span>南诏贵族盛行百花宴，《蛮书》记载最早食花史料</div>
+    </div>
+
+    <!-- 2. 1436 x=700，向下 -->
+    <div class="evt down" style="left:700px;top:260px">
+      <div class="dot"></div><div class="stem" style="height:80px"></div>
+      <div class="bub" data-tip="兰茂（1397—1470），云南嵩明人。《滇南本草》成书约1436年，早于《本草纲目》140余年。"><span class="date">约 1436 年</span>兰茂编撰《滇南本草》收录食用玫瑰，早于《本草纲目》</div>
+    </div>
+
+    <!-- 3. 明代 x=920，向上拉长 -->
+    <div class="evt up" style="left:920px;top:260px">
+      <div class="bub" data-tip="明初设云南布政使司，大量中原移民入滇。酥饼技艺随移民传入，与滇地食花传统融合。"><span class="date">明代</span>中原酥饼烘焙技艺随移民入滇，与滇地鲜花饮食融合</div><div class="stem" style="height:140px"></div><div class="dot"></div>
+    </div>
+
+    <!-- 4. 同治年间 x=1300，向下 -->
+    <div class="evt down" style="left:1300px;top:260px">
+      <div class="dot"></div><div class="stem" style="height:80px"></div>
+      <div class="bub" data-tip="合香楼由胡氏家族创立于清同治年间，为昆明早期著名糕点铺。"><span class="date">同治年间</span>胡氏家族创立合香楼，为昆明早期滇式糕点商铺</div>
+    </div>
+
+    <!-- 5. 约1870年 x=1300，向上拉长（同坐标，一上一下） -->
+    <div class="evt up" style="left:1300px;top:260px">
+      <div class="bub" data-tip="合香楼融入鲜玫瑰花瓣与高原蜂蜜，鲜花饼形制正式定型。"><span class="date">约 1870 年</span>鲜花饼形制正式定型，为现代鲜花饼起源节点</div><div class="stem" style="height:140px"></div><div class="dot"></div>
+    </div>
+
+    <!-- 6. 1907 x=1520，向下 -->
+    <div class="evt down" style="left:1520px;top:260px">
+      <div class="dot"></div><div class="stem" style="height:80px"></div>
+      <div class="bub" data-tip="吉庆祥于1907年由陈氏家族创办，为昆明现存最老的鲜花饼老字号。"><span class="date">1907 年</span>吉庆祥开业，陈氏家族创办，昆明老牌鲜花饼老字号</div>
+    </div>
+
+    <!-- 7. 民国初年 x=1640，向上拉长 -->
+    <div class="evt up" style="left:1640px;top:260px">
+      <div class="bub" data-tip="冠生园落地昆明开设分店，滇式鲜花饼进一步大范围普及。"><span class="date">民国初年</span>冠生园落地昆明开设分店，滇式鲜花饼大范围普及</div><div class="stem" style="height:140px"></div><div class="dot"></div>
+    </div>
+
+    <!-- 8. 1992 x=2100，向下短 -->
+    <div class="evt down" style="left:2100px;top:260px">
+      <div class="dot"></div><div class="stem" style="height:50px"></div>
+      <div class="bub" data-tip="1992年鲜花饼实现工业化量产，馅料标准化，打破鲜花季节限制。"><span class="date">1992 年</span>鲜花饼实现工业化量产，馅料标准化，打破鲜花季节限制</div>
+    </div>
+
+    <!-- 9. 2008 x=2350，向下短 -->
+    <div class="evt down" style="left:2350px;top:260px">
+      <div class="dot"></div><div class="stem" style="height:50px"></div>
+      <div class="bub" data-tip="2008年后云南玫瑰种植基地大范围扩建，安宁八街获评国家地理标志。"><span class="date">2008 年后</span>云南玫瑰种植基地扩建，安宁八街获评国家地理标志</div>
+    </div>
+
+    <!-- 10. 2026 x=2700，向下短 -->
+    <div class="evt down" style="left:2700px;top:260px">
+      <div class="dot"></div><div class="stem" style="height:50px"></div>
+      <div class="bub" data-tip="2010年后依托文旅销往全国，鲜花饼稳居云南热门伴手礼。"><span class="date">2010 年后</span>依托文旅销往全国，鲜花饼稳居云南热门伴手礼</div>
+    </div>
+
+  </div></div>
+
+  <div class="footer">参考资料：《滇南本草》《蛮书》《昆明市志》《云南饮食文化史》及合香楼、吉庆祥老字号档案</div>
+</div>
+<div class="tip" id="tip"></div>
+<script>
+var tip=document.getElementById("tip");
+document.querySelectorAll(".bub").forEach(function(d){
+  d.addEventListener("mouseenter",function(){
+    var t=d.getAttribute("data-tip");if(!t)return;
+    tip.innerHTML=t;tip.classList.add("on");
+  });
+  d.addEventListener("mousemove",function(e){
+    var x=e.clientX+18,y=e.clientY+18;
+    if(x+300>window.innerWidth)x=e.clientX-310;
+    if(y+140>window.innerHeight)y=e.clientY-140;
+    tip.style.left=x+"px";tip.style.top=y+"px";
+  });
+  d.addEventListener("mouseleave",function(){tip.classList.remove("on");});
+});
+</script>
+</body>
+</html>
