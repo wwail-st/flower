@@ -161,6 +161,34 @@ document.querySelectorAll(".bub").forEach(function(d){
   });
   d.addEventListener("mouseleave",function(){tip.classList.remove("on");});
 });
+
+/* 自动横向滚动 + 无限循环 */
+var scroll = document.querySelector(".scroll");
+var speed = 0.3;      // 滚动速度，越小越慢
+var direction = 1;    // 1=向右, -1=向左
+var paused = false;
+
+function autoScroll() {
+  if (!paused) {
+    scroll.scrollLeft += speed * direction;
+    // 滚到最右 → 折返向左
+    if (scroll.scrollLeft >= scroll.scrollWidth - scroll.clientWidth - 1) {
+      direction = -1;
+    }
+    // 滚回最左 → 折返向右
+    if (scroll.scrollLeft <= 1) {
+      direction = 1;
+    }
+  }
+  requestAnimationFrame(autoScroll);
+}
+
+// 鼠标悬停暂停
+scroll.addEventListener("mouseenter",function(){ paused = true; });
+scroll.addEventListener("mouseleave",function(){ paused = false; });
+
+// 启动
+autoScroll();
 </script>
 </body>
 </html>
