@@ -69,6 +69,7 @@
     <div class="era" style="left:1600px;top:110px"><span class="era-date">1912 — 1949</span><div class="era-name">民国时期</div><div class="era-desc">&#x1F3EA; 走向寻常百姓家</div></div>
     <div class="era" style="left:1950px;top:110px"><span class="era-date">1949 至今</span><div class="era-name">现当代</div><div class="era-desc">&#x1F30D; 产业化·走向全国</div></div>
 
+    <!-- ===== 年代背景图（全高覆盖，等距排布，首尾有图）===== -->
     <div style="position:absolute;left:70px;top:0;width:550px;height:560px;z-index:0;display:flex;align-items:center;justify-content:center">
       <img src="bg_nanzhao.png" style="max-width:100%;max-height:100%;object-fit:contain;opacity:0.35;border-radius:6px">
     </div>
@@ -161,19 +162,19 @@ document.querySelectorAll(".bub").forEach(function(d){
   });
   d.addEventListener("mouseleave",function(){tip.classList.remove("on");});
 });
-/* 无缝无限循环 */
+/* 无缝自动滑动 */
 (function(){
   var sc = document.querySelector(".scroll");
   var tr = document.querySelector(".track");
-  if (!sc || !tr) return;
-  // 复制一份 track 接到末尾
-  var clone = tr.cloneNode(true);
-  sc.appendChild(clone);
+  if(!sc||!tr)return;
+  var cl = tr.cloneNode(true);
+  sc.appendChild(cl);
   sc.style.display = "flex";
-  // 每 20ms 滚 2px，到头重置到开头（因为有两份，视觉无缝）
+  tr.style.flexShrink = "0";
+  cl.style.flexShrink = "0";
   setInterval(function(){
     sc.scrollLeft += 2;
-    if (sc.scrollLeft >= tr.offsetWidth) sc.scrollLeft = 0;
+    if(sc.scrollLeft >= tr.offsetWidth) sc.scrollLeft = 0;
   }, 20);
 })();
 </script>
