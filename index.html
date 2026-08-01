@@ -162,27 +162,20 @@ document.querySelectorAll(".bub").forEach(function(d){
   d.addEventListener("mouseleave",function(){tip.classList.remove("on");});
 });
 
-/* 自动横向滚动 + 无限循环 */
-window.addEventListener("DOMContentLoaded", function(){
-  var scroll = document.querySelector(".scroll");
-  if (!scroll || scroll.scrollWidth <= scroll.clientWidth) return;
-  var speed = 0.5;
-  var direction = 1;
-  var paused = false;
-
-  function autoScroll() {
-    if (!paused) {
-      scroll.scrollLeft += speed * direction;
-      if (scroll.scrollLeft >= scroll.scrollWidth - scroll.clientWidth - 2) direction = -1;
-      if (scroll.scrollLeft <= 2) direction = 1;
+/* 自动横向滚动 + 无限循环（鼠标悬停暂停） */
+(function(){
+  var s = document.querySelector(".scroll");
+  if (!s) return;
+  var d = 1, p = false, t;
+  s.addEventListener("mouseenter",function(){ p = true; });
+  s.addEventListener("mouseleave",function(){ p = false; });
+  t = setInterval(function(){
+    if (!p) {
+      s.scrollLeft += d;
+      if (s.scrollLeft >= s.scrollWidth - s.clientWidth) { s.scrollLeft = 0; }
     }
-    requestAnimationFrame(autoScroll);
-  }
-
-  scroll.addEventListener("mouseenter",function(){ paused = true; });
-  scroll.addEventListener("mouseleave",function(){ paused = false; });
-  autoScroll();
-});
+  }, 20);
+})();
 </script>
 </body>
 </html>
