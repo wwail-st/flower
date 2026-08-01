@@ -11,8 +11,10 @@
   .header h1{font-size:1.5rem;color:#2C5F2D;letter-spacing:3px;margin-bottom:4px}
   .header .sub{color:#8B7355;font-size:0.78rem}
 
-  .scroll{overflow-x:auto;overflow-y:visible}
-  .track{position:relative;width:2800px;height:660px}
+  .scroll{overflow:hidden;position:relative}
+  .track{position:relative;width:2800px;height:660px;animation:slide 120s linear infinite;animation-play-state:running}
+  .track:hover{animation-play-state:paused}
+  @keyframes slide{0%{transform:translateX(0)}100%{transform:translateX(calc(-2800px + 100vw))}}
 
   .axis{position:absolute;top:260px;left:60px;right:60px;height:3px;background:#7D9B7E;border-radius:2px}
 
@@ -162,22 +164,6 @@ document.querySelectorAll(".bub").forEach(function(d){
   d.addEventListener("mouseleave",function(){tip.classList.remove("on");});
 });
 
-/* 自动横向滚动（鼠标悬停暂停，无限循环） */
-(function(){
-  var s = document.querySelector(".scroll");
-  if (!s) return;
-  var p = false;
-  s.addEventListener("mouseenter",function(){ p = true; });
-  s.addEventListener("mouseleave",function(){ p = false; });
-  function step() {
-    if (!p) {
-      if (s.scrollLeft >= s.scrollWidth - s.clientWidth) { s.scrollLeft = 0; }
-      else { s.scrollLeft += 1; }
-    }
-    requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-})();
 </script>
 </body>
 </html>
