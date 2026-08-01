@@ -161,8 +161,21 @@ document.querySelectorAll(".bub").forEach(function(d){
   });
   d.addEventListener("mouseleave",function(){tip.classList.remove("on");});
 });
-/* 自动滚动 */
-var sc = document.querySelector(".scroll"); var st; clearInterval(st); st = setInterval(function(){ sc.scrollLeft += 2; if(sc.scrollLeft >= sc.scrollWidth - sc.clientWidth) sc.scrollLeft = 0; }, 20);
+/* 无缝无限循环 */
+(function(){
+  var sc = document.querySelector(".scroll");
+  var tr = document.querySelector(".track");
+  if (!sc || !tr) return;
+  // 复制一份 track 接到末尾
+  var clone = tr.cloneNode(true);
+  sc.appendChild(clone);
+  sc.style.display = "flex";
+  // 每 20ms 滚 2px，到头重置到开头（因为有两份，视觉无缝）
+  setInterval(function(){
+    sc.scrollLeft += 2;
+    if (sc.scrollLeft >= tr.offsetWidth) sc.scrollLeft = 0;
+  }, 20);
+})();
 </script>
 </body>
 </html>
