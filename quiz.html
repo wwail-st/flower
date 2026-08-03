@@ -133,7 +133,7 @@ function showStart(){
   h += '<div class="start-emoji">🌸</div>';
   h += '<div class="start-title">🌸 测测你是哪种云南花</div>';
   h += '<div class="start-sub">10道题，12种花——<br>看看你的性格最像云南的哪朵花<br>还有你的专属鲜花饼风格 🥮</div>';
-  h += '<button class="start-btn" onclick="startQuiz()">开始测试</button>';
+  h += '<button class="start-btn" data-action="start">开始测试</button>';
   h += '</div>';
   el.innerHTML = h;
 }
@@ -155,7 +155,7 @@ function renderQ(){
   h+='<div class="opts">';
   for(var j=0;j<q.o.length;j++){
     var o=q.o[j];
-    h+='<div class="opt" data-s=\''+JSON.stringify(o.s)+'\' onclick="handlePick(this)"><span class="emoji">'+o.e+'</span>'+o.t+'</div>';
+    h+='<div class="opt" data-action="pick" data-s=\''+JSON.stringify(o.s)+'\'><span class="emoji">'+o.e+'</span>'+o.t+'</div>';
   }
   h+='</div></div>';
   el.innerHTML=h;
@@ -180,10 +180,19 @@ function showResult(){
   h+='<div class="desc">'+r.desc+'</div>';
   h+='<div class="cake">'+r.cake+'</div>';
   for(var k=0;k<r.tags.length;k++) h+='<span class="tag">'+r.tags[k]+'</span>';
-  h+='<br><button class="btn" onclick="startQuiz()">♻️ 再测一次</button>';
+  h+='<br><button class="btn" data-action="start">♻️ 再测一次</button>';
   h+='</div>';
   el.innerHTML=h;
 }
+
+// 事件委托
+el.addEventListener('click', function(e){
+  var btn = e.target.closest('[data-action]');
+  if(!btn) return;
+  var action = btn.getAttribute('data-action');
+  if(action === 'start') startQuiz();
+  if(action === 'pick') handlePick(btn);
+});
 
 showStart();
 </script>
